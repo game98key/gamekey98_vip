@@ -99,11 +99,10 @@ footer{grid-column:1/-1;text-align:center;padding:18px;color:var(--muted);opacit
 
 </div>
 
-<!-- فرم خرید -->
+<!-- فرم خرید با Formspree -->
 <div class="order-form" id="buyForm">
 <h2>فرم خرید — <span id="selectedProduct">محصول انتخاب نشده</span></h2>
-<form id="orderForm">
-<input type="hidden" name="access_key" value="f68bbc85-24e4-46ad-9cfc-c49d7ad6ceaf">
+<form id="orderForm" action="https://formspree.io/f/mkgpjkjp" method="POST">
 <input type="hidden" name="product_name" id="product_name_input">
 
 <div class="row">
@@ -210,52 +209,18 @@ document.getElementById('want_ready').addEventListener('change',e=>{
   document.getElementById('steamPassWrap').style.display=c?'none':'block';
 });
 
-document.getElementById('orderForm').addEventListener('submit', async function(ev){
-  ev.preventDefault();
+// شماره موبایل فقط اجباری و ولیدیشن
+document.getElementById('orderForm').addEventListener('submit', function(ev){
+  const phone=this.phone.value.trim();
   const msg=document.getElementById('formMsg');
-  msg.classList.remove('error','success'); msg.innerText='';
-
-  const f=ev.target;
-  const phone=f.phone.value.trim();
-  const product=document.getElementById('product_name_input').value||document.getElementById('selectedProduct').innerText;
-
   if(!/^09\d{9}$/.test(phone)){
-    msg.classList.add('error');
-    msg.innerText='شماره موبایل باید ۱۱ رقم و با 09 شروع شود';
+    ev.preventDefault();
+    msg.classList.add('error'); msg.innerText='شماره موبایل باید ۱۱ رقم و با 09 شروع شود';
     return;
   }
-
-  const data=new FormData(f);
-  data.set('product_name',product);
-  data.set('subject','سفارش آنلاین — '+product);
-  data.set('recipient_email','bm.pro.ir@gmail.com');
-
-  try{
-    msg.innerText='در حال ارسال...';
-    const resp=await fetch('https://api.web3forms.com/submit',{
-      method:'POST',
-      body:data
-    });
-    const res=await resp.json();
-    if(res && res.success){
-      msg.classList.add('success');
-      msg.innerText=`خرید شما "${product}" ثبت شد. برای توضیحات و اطلاعات این محصول، برای شما در ایمیل یا تلگرام ارسال می‌شود (حداکثر 10 دقیقه)`;
-      f.reset();
-      cart=[];
-      renderCart();
-      document.getElementById('steamUserWrap').style.display='block';
-      document.getElementById('steamPassWrap').style.display='block';
-    } else {
-      msg.classList.add('error');
-      msg.innerText='خطا در ارسال فرم. دوباره امتحان کنید';
-    }
-  } catch(err){
-    msg.classList.add('error');
-    msg.innerText='خطا در اتصال. مطمئن شوید Access Key صحیح است';
-    console.error(err);
-  }
+  msg.classList.remove('error'); msg.classList.add('success');
+  msg.innerText=`خرید شما "${document.getElementById('product_name_input').value}" ثبت شد. اطلاعات محصول برای شما ارسال می‌شود (حداکثر ۱۰ دقیقه)`;
 });
-
 renderCart();
 </script>
 </body>
