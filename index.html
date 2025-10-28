@@ -1,370 +1,224 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fa">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>GameKey98 — فروش بازی</title>
-  <meta name="description" content="فروشگاه GameKey98 — خرید امن بازی و اکانت آماده" />
-  <style>
-    /* ====== Blue Sci-Fi Theme ====== */
-    :root{
-      --bg:#071627; --card:#0d2330; --accent:#00b7ff; --accent-2:#6fd3ff;
-      --muted:#9fbac9; --danger:#ff6b6b; --glass: rgba(255,255,255,0.02);
-      --glass-2: rgba(2,18,26,0.45);
-      font-family: 'Tahoma','Vazir','Helvetica','Arial',sans-serif;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%;margin:0;background:linear-gradient(180deg,#021021 0%, #072635 70%);color:#cfeffb;direction:rtl}
-    a{color:var(--accent)}
-    .wrap{max-width:1100px;margin:28px auto;padding:18px;display:grid;grid-template-columns:1fr 340px;gap:18px}
-    header{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
-    .brand{display:flex;flex-direction:column}
-    .logo{font-weight:900;font-size:22px;color:var(--accent);letter-spacing:1px}
-    .subtitle{font-size:13px;color:var(--muted);margin-top:4px}
-    .vip{background:linear-gradient(90deg, rgba(111,211,255,0.12), rgba(0,183,255,0.06));padding:8px 14px;border-radius:12px;color:var(--accent);font-weight:700}
-
-    /* products */
-    .store{background:linear-gradient(180deg, rgba(13,35,48,0.6), rgba(8,20,32,0.4));padding:16px;border-radius:14px;box-shadow:0 10px 40px rgba(0,183,255,0.06)}
-    .store h1{margin:0 0 10px 0;color:var(--accent-2)}
-    .product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
-    .product{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:12px;border-radius:12px;border:1px solid rgba(111,211,255,0.04)}
-    .p-title{font-weight:800;color:#eaffff}
-    .p-desc{font-size:13px;color:var(--muted);margin-top:6px}
-    .p-price{margin-top:8px;font-weight:900;color:var(--accent)}
-    .p-actions{display:flex;gap:8px;margin-top:10px}
-    .btn{background:transparent;border:1px solid rgba(111,211,255,0.08);padding:8px 12px;border-radius:10px;cursor:pointer;color:var(--accent);font-weight:800}
-    .btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#012134;border:none;box-shadow:0 10px 30px rgba(6,144,183,0.14)}
-
-    /* sidebar cart */
-    .sidebar{position:relative}
-    .cart{position:sticky;top:24px;background:linear-gradient(180deg,#071b27, #0b2a38);padding:16px;border-radius:12px;border:1px solid rgba(111,211,255,0.03)}
-    .cart h3{margin:0 0 8px 0;color:var(--accent-2)}
-    .cart-item{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed rgba(255,255,255,0.03)}
-    .cart-empty{opacity:0.7;color:var(--muted)}
-
-    /* form */
-    .order-form{background:var(--glass-2);padding:14px;border-radius:12px;border:1px solid rgba(111,211,255,0.03);margin-top:14px}
-    label{display:block;margin-bottom:6px;color:var(--muted);font-size:13px}
-    input[type=text], input[type=email], input[type=tel], input[type=password], textarea, select{
-      width:100%;padding:10px;border-radius:8px;border:1px solid rgba(111,211,255,0.06);background:rgba(2,18,26,0.35);color:#dff8ff;outline:none;font-size:14px;
-      transition:box-shadow .15s,transform .08s;
-    }
-    input:focus, textarea:focus{box-shadow:0 6px 30px rgba(0,183,255,0.08);transform:translateY(-2px)}
-    .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-    .full{grid-column:1/-1}
-    .note{font-size:13px;color:var(--muted);margin-top:8px}
-    .error{color:var(--danger);font-weight:800}
-    .success{color:#8cf3a0;font-weight:800}
-
-    /* floating purchase bar at bottom */
-    .bottom-actions{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:center;padding:12px;background:linear-gradient(180deg,rgba(1,10,15,0.2),rgba(1,8,12,0.4));backdrop-filter: blur(6px);z-index:90}
-    .bottom-inner{max-width:1100px;width:100%;display:flex;justify-content:flex-end;gap:12px}
-    .buy-cta{padding:12px 18px;border-radius:12px;font-weight:900;cursor:pointer;border:none}
-
-    footer{grid-column:1/-1;text-align:center;padding:18px;color:var(--muted);opacity:0.9;margin-top:40px}
-
-    @media(max-width:900px){
-      .wrap{grid-template-columns:1fr;padding:12px}
-      .row{grid-template-columns:1fr}
-      .sidebar{order:-1}
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GameKey98 — فروشگاه دیجیتال</title>
+<link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet" type="text/css" />
+<style>
+:root{
+  --bg:#0b0a0f; --card:#1a1523; --accent:#b33cff; --accent2:#e15fff;
+  --muted:#9e9e9e; --danger:#ff4c4c; --glass: rgba(255,255,255,0.03); font-family:'Vazir','Tahoma',sans-serif;
+}
+*{box-sizing:border-box;}
+body{margin:0;background:var(--bg);color:#fff;direction:rtl;font-family:'Vazir',sans-serif;}
+.wrap{max-width:1200px;margin:20px auto;display:grid;grid-template-columns:1fr 320px;gap:20px;}
+header{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.logo{font-size:26px;font-weight:900;color:var(--accent);}
+.vip{background:linear-gradient(90deg, rgba(177,60,255,0.2), rgba(225,95,255,0.1));padding:6px 14px;border-radius:12px;font-weight:700;color:var(--accent);}
+.store{background:var(--card);padding:16px;border-radius:12px;box-shadow:0 0 20px rgba(177,60,255,0.2);}
+.store h1{color:var(--accent2);margin-top:0;margin-bottom:10px;}
+.product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;}
+.product{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:12px;border-radius:12px;border:1px solid rgba(225,95,255,0.1);}
+.p-title{font-weight:800;color:#fff;font-size:16px;}
+.p-price{margin-top:6px;font-weight:900;color:var(--accent);}
+.p-desc{font-size:13px;color:var(--muted);}
+.p-actions{display:flex;gap:8px;margin-top:8px;}
+.btn{padding:8px 12px;border-radius:8px;border:1px solid rgba(225,95,255,0.2);background:transparent;color:var(--accent);font-weight:700;cursor:pointer;transition:0.2s;}
+.btn:hover{background:rgba(225,95,255,0.15);}
+.btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent2));color:#fff;border:none;}
+.sidebar{position:sticky;top:20px;}
+.cart{background:var(--card);padding:14px;border-radius:12px;border:1px solid rgba(225,95,255,0.1);}
+.cart h3{color:var(--accent2);margin:0 0 6px 0;}
+.cart-item{display:flex;justify-content:space-between;border-bottom:1px dashed rgba(225,95,255,0.1);padding:6px 0;}
+.cart-empty{opacity:0.6;color:var(--muted);}
+.order-form{display:none;background:rgba(18,12,25,0.6);padding:14px;border-radius:12px;border:1px solid rgba(225,95,255,0.1);margin-top:14px;}
+label{display:block;margin-bottom:4px;color:var(--muted);font-size:13px;}
+input,textarea{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(225,95,255,0.2);background:rgba(18,12,25,0.5);color:#fff;font-size:14px;}
+input:focus,textarea:focus{box-shadow:0 0 10px rgba(225,95,255,0.3);}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.full{grid-column:1/-1;}
+.note{font-size:12px;color:var(--muted);margin-top:4px;}
+.error{color:var(--danger);font-weight:800;}
+.success{color:#8cf3a0;font-weight:800;}
+.bottom-actions{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:center;padding:12px;background:linear-gradient(180deg,rgba(0,0,0,0.7),rgba(0,0,0,0.85));backdrop-filter: blur(6px);z-index:90;}
+.bottom-inner{max-width:1200px;width:100%;display:flex;justify-content:flex-end;gap:12px;}
+.buy-cta{padding:12px 18px;border-radius:12px;font-weight:900;cursor:pointer;border:none;}
+footer{grid-column:1/-1;text-align:center;padding:18px;color:var(--muted);opacity:0.9;margin-top:40px;}
+@media(max-width:900px){.wrap{grid-template-columns:1fr;padding:12px}.row{grid-template-columns:1fr}.sidebar{order:-1;}}
+</style>
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <div class="brand">
-        <div class="logo">GameKey98</div>
-        <div class="subtitle">فروشگاه دیجیتال — خرید امن و سریع بازی</div>
-      </div>
-      <div class="vip">پنل وی ای پی</div>
-    </header>
+<div class="wrap">
+<header>
+<div class="logo">GameKey98</div>
+<div class="vip">پنل وی ای پی</div>
+</header>
 
-    <!-- ======= فروشگاه و محصولات (محصولات ثابت) ======= -->
-    <main class="store" aria-label="فروشگاه">
-      <h1>محصولات منتخب</h1>
+<main class="store">
+<h1>محصولات منتخب</h1>
+<div class="product-grid" id="productList">
 
-      <div class="product-grid" id="productList">
-        <!-- Prime CS -->
-        <div class="product" data-name="Prime CS2" data-price="1900000">
-          <div class="p-title">پرایم CS2</div>
-          <div class="p-price">۱,۹۰۰,۰۰۰ تومان</div>
-          <div class="p-desc">(با تغییر ریجن مورد نظر شما)</div>
-          <div class="p-actions">
-            <button class="btn" onclick="addToCart(this)">افزودن به سبد</button>
-            <button class="btn primary" onclick="openBuyForm(this)">خرید</button>
-          </div>
-        </div>
+<!-- Prime CS -->
+<div class="product" data-name="Prime CS2" data-price="1900000">
+<div class="p-title">پرایم CS2</div>
+<div class="p-price">۱,۹۰۰,۰۰۰ تومان</div>
+<div class="p-desc">(با تغییر ریجن)</div>
+<div class="p-actions">
+<button class="btn" onclick="addToCart(this)">افزودن به سبد</button>
+<button class="btn primary" onclick="openBuyForm(this)">خرید</button>
+</div>
+</div>
 
-        <!-- Rainbow Six Credits 1000 -->
-        <div class="product" data-name="R6 Credits 1000" data-price="560000">
-          <div class="p-title">کوین Rainbow — ۱۰۰۰ عدد</div>
-          <div class="p-price">۵۶۰,۰۰۰ تومان</div>
-          <div class="p-actions">
-            <button class="btn" onclick="addToCart(this)">افزودن به سبد</button>
-            <button class="btn primary" onclick="openBuyForm(this)">خرید</button>
-          </div>
-        </div>
+<!-- Rainbow Six Credits 1000 -->
+<div class="product" data-name="R6 Credits 1000" data-price="560000">
+<div class="p-title">کوین Rainbow — ۱۰۰۰ عدد</div>
+<div class="p-price">۵۶۰,۰۰۰ تومان</div>
+<div class="p-actions">
+<button class="btn" onclick="addToCart(this)">افزودن به سبد</button>
+<button class="btn primary" onclick="openBuyForm(this)">خرید</button>
+</div>
+</div>
 
-        <!-- Games above 1.5M -->
-        <div class="product" data-name="Elden Ring" data-price="2100000">
-          <div class="p-title">Elden Ring</div>
-          <div class="p-price">۲,۱۰۰,۰۰۰ تومان</div>
-          <div class="p-actions">
-            <button class="btn" onclick="addToCart(this)">افزودن به سبد</button>
-            <button class="btn primary" onclick="openBuyForm(this)">خرید</button>
-          </div>
-        </div>
+<!-- Cyberpunk 2077 -->
+<div class="product" data-name="Cyberpunk 2077" data-price="6000000">
+<div class="p-title">Cyberpunk 2077</div>
+<div class="p-price">۶,۰۰۰,۰۰۰ تومان</div>
+<div class="p-actions">
+<button class="btn" onclick="addToCart(this)">افزودن به سبد</button>
+<button class="btn primary" onclick="openBuyForm(this)">خرید</button>
+</div>
+</div>
 
-        <div class="product" data-name="Cyberpunk 2077" data-price="1800000">
-          <div class="p-title">Cyberpunk 2077</div>
-          <div class="p-price">۱,۸۰۰,۰۰۰ تومان</div>
-          <div class="p-actions">
-            <button class="btn" onclick="addToCart(this)">افزودن به سبد</button>
-            <button class="btn primary" onclick="openBuyForm(this)">خرید</button>
-          </div>
-        </div>
+<!-- Elden Ring ناموجود -->
+<div class="product" data-name="Elden Ring" data-price="0">
+<div class="p-title">Elden Ring</div>
+<div class="p-price" style="text-decoration:line-through;opacity:0.6;">ناموجود</div>
+<div class="p-actions">
+<button class="btn" disabled>افزودن به سبد</button>
+<button class="btn primary" disabled>خرید</button>
+</div>
+</div>
 
-        <div class="product" data-name="Call of Duty: MW3" data-price="2500000">
-          <div class="p-title">Call of Duty: Modern Warfare III</div>
-          <div class="p-price">۲,۵۰۰,۰۰۰ تومان</div>
-          <div class="p-actions">
-            <button class="btn" onclick="addToCart(this)">افزودن به سبد</button>
-            <button class="btn primary" onclick="openBuyForm(this)">خرید</button>
-          </div>
-        </div>
-      </div>
+</div>
 
-      <!-- ======= فرم خرید (نمایش داده می‌شود هنگام کلیک روی خرید) ======= -->
-      <div class="order-form" id="buyForm" style="display:none;margin-top:18px;">
-        <h2 style="margin:0 0 8px 0;color:var(--accent-2)">فرم خرید — <span id="selectedProduct">(محصول انتخاب نشده)</span></h2>
+<!-- فرم خرید -->
+<div class="order-form" id="buyForm">
+<h2>فرم خرید — <span id="selectedProduct">محصول انتخاب نشده</span></h2>
+<form id="orderForm">
+<input type="hidden" name="access_key" value="f68bbc85-24e4-46ad-9cfc-c49d7ad6ceaf">
+<input type="hidden" name="product_name" id="product_name_input">
 
-        <!-- Web3Forms POST (Access Key قرار داده شده) -->
-        <form id="orderForm">
-          <!-- مهم: اگر خواستی این کلید را عوض کنی، این مقدار را جایگزین کن -->
-          <input type="hidden" name="access_key" value="f68bbc85-24e4-46ad-9cfc-c49d7ad6ceaf">
-          <input type="hidden" name="product_name" id="product_name_input">
+<div class="row">
+<div>
+<label>نام و نام خانوادگی</label>
+<input name="fullname" type="text" required placeholder="مثال: مهدی یار مرادی">
+</div>
+<div>
+<label>شماره موبایل</label>
+<input id="phone" name="phone" type="tel" required placeholder="09XXXXXXXXX">
+</div>
+</div>
 
-          <div class="row">
-            <div>
-              <label for="fullname">نام و نام خانوادگی</label>
-              <input id="fullname" name="fullname" type="text" required placeholder="مثال: مهدی یار مرادی">
-            </div>
-            <div>
-              <label for="phone">شماره موبایل</label>
-              <input id="phone" name="phone" type="tel" required placeholder="09XXXXXXXXX">
-            </div>
+<div class="row" style="margin-top:10px">
+<div id="steamUserWrap">
+<label>نام کاربری استیم</label>
+<input id="steam_user" name="steam_user" type="text" placeholder="SteamUsername" required>
+</div>
+<div id="steamPassWrap">
+<label>رمز عبور استیم</label>
+<input id="steam_pass" name="steam_pass" type="password" placeholder="رمز عبور" required>
+</div>
+</div>
 
-            <div>
-              <label for="email">ایمیل</label>
-              <input id="email" name="email" type="email" required placeholder="you@example.com">
-            </div>
-            <div>
-              <label for="telegram">آیدی تلگرام</label>
-              <input id="telegram" name="telegram" type="text" placeholder="@username یا id">
-            </div>
-          </div>
+<div style="margin-top:10px">
+<label style="display:flex;align-items:center;gap:8px">
+<input id="want_ready" type="checkbox" /> می‌خواهم اکانت آماده بگیرم با بازی
+</label>
+<div class="note">اگر این گزینه را بزنید بازی یا محصول شما روی یک اکانت آماده خریداری می‌شود.</div>
+</div>
 
-          <div class="row" style="margin-top:10px">
-            <div id="steamUserWrap">
-              <label for="steam_user">نام کاربری استیم</label>
-              <input id="steam_user" name="steam_user" type="text" placeholder="SteamUsername" required>
-            </div>
-            <div id="steamPassWrap">
-              <label for="steam_pass">رمز عبور استیم</label>
-              <input id="steam_pass" name="steam_pass" type="password" placeholder="رمز عبور" required>
-            </div>
-          </div>
+<div style="margin-top:10px">
+<label>توضیحات (اختیاری)</label>
+<textarea name="message" rows="3" placeholder="توضیحات خود را وارد کنید"></textarea>
+</div>
 
-          <div style="margin-top:10px">
-            <label style="display:flex;align-items:center;gap:8px">
-              <input id="want_ready" type="checkbox" /> می‌خواهم اکانت آماده بگیرم با بازی
-            </label>
-            <div class="note">اگر این گزینه را بزنید بازی یا محصول مورد نظر شما روی یک اکانت خریداری می‌شود و به صورت آماده در اختیار شما قرار می‌گیرد.</div>
-          </div>
+<div style="display:flex;gap:12px;align-items:center;margin-top:12px">
+<button type="submit" class="btn primary">ارسال سفارش</button>
+<div id="formMsg" class="note"></div>
+</div>
+</form>
+</div>
+</main>
 
-          <div style="margin-top:10px">
-            <label for="message">توضیحات (اختیاری)</label>
-            <textarea id="message" name="message" rows="3" placeholder="در صورت نیاز توضیحات خود را وارد کنید"></textarea>
-          </div>
+<!-- سایدبار / سبد خرید -->
+<aside class="sidebar">
+<div class="cart" id="cartBox">
+<h3>سبد خرید</h3>
+<div id="cartItems"><div class="cart-empty">سبد خرید خالی است</div></div>
+<div style="margin-top:10px;display:flex;gap:8px">
+<button class="btn" onclick="clearCart()">پاک کردن</button>
+<button class="btn primary" onclick="openBuyFormFromCart()">خرید</button>
+</div>
+</div>
+</aside>
 
-          <div style="display:flex;gap:12px;align-items:center;margin-top:12px">
-            <button type="submit" class="btn primary">ارسال سفارش</button>
-            <div id="formMsg" class="note" style="margin:0"></div>
-          </div>
-        </form>
-      </div>
-    </main>
+<footer>© 2025 GameKey98 — Cyberpunk Purple Theme</footer>
+</div>
 
-    <!-- ======= سایدبار (سبد خرید) ======= -->
-    <aside class="sidebar" aria-label="سبد خرید">
-      <div class="cart" id="cartBox">
-        <h3>سبد خرید</h3>
-        <div id="cartItems"><div class="cart-empty">سبد خرید خالی است</div></div>
-        <div style="display:flex;gap:8px;margin-top:10px">
-          <button class="btn" onclick="clearCart()">پاک کردن</button>
-          <button class="btn primary" onclick="checkout()">خرید (رفتن به فرم)</button>
-        </div>
-      </div>
-    </aside>
+<!-- پایین صفحه: دکمه خرید -->
+<div class="bottom-actions">
+<div class="bottom-inner">
+<button class="buy-cta" onclick="openBuyFormFromCart()">خرید کالا</button>
+</div>
+</div>
 
-    <footer>© 2025 GameKey98 — تم Blue Sci-Fi</footer>
-  </div>
-
-  <!-- ثابت پایین صفحه: دکمه خرید کلی (مطابق درخواست: پایین صفحه) -->
-  <div class="bottom-actions">
-    <div class="bottom-inner">
-      <div style="display:flex;gap:8px">
-        <button class="buy-cta" style="background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#012134;border-radius:12px;padding:10px 16px;font-weight:900" onclick="openBuyFormFromCart()">خرید کالا</button>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    /* ====== منطق محصولات، سبد و فرم ====== */
-    // cart (local memory)
-    let cart = [];
-
-    function addToCart(btn){
-      const pr = btn.closest('.product');
-      const name = pr.dataset.name;
-      const price = pr.dataset.price;
-      // push a copy
-      cart.push({name,price});
-      renderCart();
-    }
-
-    function renderCart(){
-      const box = document.getElementById('cartItems');
-      box.innerHTML = '';
-      if(cart.length === 0){
-        box.innerHTML = '<div class="cart-empty">سبد خرید خالی است</div>';
-        return;
-      }
-      cart.forEach((it, idx) => {
-        const el = document.createElement('div');
-        el.className = 'cart-item';
-        el.innerHTML = `<div>${escapeHtml(it.name)}</div><div style="text-align:left">${escapeHtml(formatToman(it.price))} <button class="btn" style="margin-right:8px;padding:6px 8px" onclick="removeFromCart(${idx})">حذف</button></div>`;
-        box.appendChild(el);
-      });
-    }
-
-    function removeFromCart(i){ cart.splice(i,1); renderCart(); }
-    function clearCart(){ cart = []; renderCart(); }
-
-    function formatToman(value){
-      // value numeric (in تومان) as string or number
-      const n = Number(value);
-      if(isNaN(n)) return value;
-      return n.toLocaleString('fa-IR') + ' تومان';
-    }
-
-    // open buy form for specific product card
-    function openBuyForm(elOrBtn){
-      // elOrBtn may be an element (button) or event from bottom buy
-      let pr = null;
-      if(typeof elOrBtn === 'object' && elOrBtn.closest){
-        pr = elOrBtn.closest('.product');
-      }
-      let productName = '';
-      if(pr){
-        productName = pr.dataset.name;
-      } else if(cart.length > 0){
-        productName = cart[0].name;
-      }
-      if(!productName && pr === null && cart.length === 0){
-        alert('ابتدا یک محصول به سبد خرید اضافه کنید یا روی دکمه خرید محصول در کارت آن کلیک کنید.');
-        return;
-      }
-      document.getElementById('product_name_input').value = productName;
-      document.getElementById('selectedProduct').innerText = productName || '(محصول انتخاب نشده)';
-      document.getElementById('buyForm').style.display = 'block';
-      // scroll to form (mobile friendly)
-      setTimeout(()=>{ document.getElementById('buyForm').scrollIntoView({behavior:'smooth',block:'center'}); },120);
-    }
-
-    function openBuyFormFromCart(){ 
-      if(cart.length === 0){ alert('سبد خرید خالی است. یک محصول اضافه کنید.'); return; }
-      openBuyForm();
-    }
-
-    function checkout(){ openBuyFormFromCart(); }
-
-    // handle "اکانت آماده" checkbox toggle
-    const wantReadyCheckbox = document.getElementById('want_ready');
-    wantReadyCheckbox.addEventListener('change', (e) => {
-      const checked = e.target.checked;
-      document.getElementById('steam_user').required = !checked;
-      document.getElementById('steam_pass').required = !checked;
-      document.getElementById('steamUserWrap').style.display = checked ? 'none' : 'block';
-      document.getElementById('steamPassWrap').style.display = checked ? 'none' : 'block';
-    });
-
-    // form submit: validation + send to Web3Forms
-    document.getElementById('orderForm').addEventListener('submit', async function(ev){
-      ev.preventDefault();
-      const formMsg = document.getElementById('formMsg');
-      formMsg.classList.remove('error','success');
-      formMsg.innerText = '';
-
-      const fullname = document.getElementById('fullname').value.trim();
-      const phone = document.getElementById('phone').value.trim();
-      const product = document.getElementById('product_name_input').value || document.getElementById('selectedProduct').innerText;
-      const email = document.getElementById('email').value.trim();
-
-      // phone validation: must be 11 digits and start with 09
-      if(!/^09\d{9}$/.test(phone)){
-        formMsg.classList.add('error');
-        formMsg.innerText = 'شماره موبایل باید ۱۱ رقم و با 09 شروع شود';
-        return;
-      }
-      if(fullname.length < 2){
-        formMsg.classList.add('error');
-        formMsg.innerText = 'نام و نام خانوادگی را وارد کنید';
-        return;
-      }
-      if(!product || product === '(محصول انتخاب نشده)'){
-        formMsg.classList.add('error');
-        formMsg.innerText = 'محصول انتخاب نشده است';
-        return;
-      }
-
-      // prepare FormData to send to Web3Forms
-      const f = ev.target;
-      const data = new FormData(f);
-      data.set('product_name', product);
-      data.set('subject', 'سفارش آنلاین — ' + product);
-      // optionally include a recipient email field in body (depends on Web3Forms settings)
-      data.set('recipient_email', 'bm.pro.ir@gmail.com');
-
-      try{
-        formMsg.innerText = 'در حال ارسال...';
-        const resp = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: data });
-        const res = await resp.json();
-        if(res && res.success){
-          formMsg.classList.add('success');
-          formMsg.innerText = `پشتیبانی ما برای فعال کردن "${product}" به شما در تلگرام پیام می‌دهد / یا ایمیل ارسال می‌کند (حداکثر 10 دقیقه دیگر)`;
-          f.reset();
-          // restore steam fields visibility
-          document.getElementById('steamUserWrap').style.display = 'block';
-          document.getElementById('steamPassWrap').style.display = 'block';
-          // clear cart
-          cart = []; renderCart();
-        } else {
-          formMsg.classList.add('error');
-          formMsg.innerText = 'خطا در ارسال فرم. لطفاً دوباره امتحان کنید.';
-        }
-      } catch(err) {
-        formMsg.classList.add('error');
-        formMsg.innerText = 'خطا در اتصال. مطمئن شوید Access Key صحیح است یا دسترسی اینترنت برقرار است.';
-        console.error(err);
-      }
-    });
-
-    // small utilities
-    function escapeHtml(s){ return String(s).replace(/[&<>\"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',\"'\":\"&#39;\"})[c]); }
-    // initial render
-    renderCart();
-  </script>
+<script>
+// cart
+let cart=[];
+function addToCart(btn){
+  const pr=btn.closest('.product');
+  const name=pr.dataset.name;
+  const price=parseInt(pr.dataset.price);
+  if(price===0){alert('این محصول ناموجود است');return;}
+  cart.push({name,price});
+  renderCart();
+}
+function renderCart(){
+  const box=document.getElementById('cartItems');box.innerHTML='';
+  if(cart.length===0){box.innerHTML='<div class="cart-empty">سبد خرید خالی است</div>';return;}
+  cart.forEach((it,idx)=>{
+    const el=document.createElement('div');
+    el.className='cart-item';
+    el.innerHTML=`<div>${it.name}</div><div style="text-align:left">${it.price.toLocaleString('fa-IR')} تومان <button class="btn" style="padding:4px 6px;margin-right:6px;" onclick="removeFromCart(${idx})">حذف</button></div>`;
+    box.appendChild(el);
+  });
+}
+function removeFromCart(i){cart.splice(i,1);renderCart();}
+function clearCart(){cart=[];renderCart();}
+function openBuyForm(el){let pr=el.closest('.product');const name=pr?pr.dataset.name:cart.length>0?cart[0].name:'';document.getElementById('product_name_input').value=name;document.getElementById('selectedProduct').innerText=name;document.getElementById('buyForm').style.display='block';window.scrollTo({top:document.getElementById('buyForm').offsetTop-60,behavior:'smooth'});}
+function openBuyFormFromCart(){if(cart.length===0){alert('سبد خرید خالی است');return;}openBuyForm();}
+document.getElementById('want_ready').addEventListener('change',e=>{const c=e.target.checked;document.getElementById('steam_user').required=!c;document.getElementById('steam_pass').required=!c;document.getElementById('steamUserWrap').style.display=c?'none':'block';document.getElementById('steamPassWrap').style.display=c?'none':'block';});
+document.getElementById('orderForm').addEventListener('submit',async function(ev){
+  ev.preventDefault();
+  const msg=document.getElementById('formMsg');msg.classList.remove('error','success');msg.innerText='';
+  const f=ev.target;
+  const fullname=f.fullname.value.trim();
+  const phone=f.phone.value.trim();
+  const product=document.getElementById('product_name_input').value||document.getElementById('selectedProduct').innerText;
+  if(!/^09\d{9}$/.test(phone)){msg.classList.add('error');msg.innerText='شماره موبایل باید ۱۱ رقم و با 09 شروع شود';return;}
+  if(fullname.length<2){msg.classList.add('error');msg.innerText='نام و نام خانوادگی را وارد کنید';return;}
+  if(!product||product==='محصول انتخاب نشده'){msg.classList.add('error');msg.innerText='محصول انتخاب نشده است';return;}
+  const data=new FormData(f);data.set('product_name',product);data.set('subject','سفارش آنلاین — '+product);data.set('recipient_email','bm.pro.ir@gmail.com');
+  try{
+    msg.innerText='در حال ارسال...';
+    const resp=await fetch('https://api.web3forms.com/submit',{method:'POST',body:data});
+    const res=await resp.json();
+    if(res && res.success){msg.classList.add('success');msg.innerText=`پشتیبانی ما برای فعال کردن "${product}" به شما در تلگرام پیام می‌دهد / یا ایمیل ارسال می‌کند (حداکثر 10 دقیقه)`;f.reset();document.getElementById('steamUserWrap').style.display='block';document.getElementById('steamPassWrap').style.display='block';cart=[];renderCart();}
+    else{msg.classList.add('error');msg.innerText='خطا در ارسال فرم. دوباره امتحان کنید';}
+  }catch(err){msg.classList.add('error');msg.innerText='خطا در اتصال. مطمئن شوید Access Key صحیح است';console.error(err);}
+});
+renderCart();
+</script>
 </body>
 </html>
