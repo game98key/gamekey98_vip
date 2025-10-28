@@ -8,7 +8,8 @@
 <style>
 :root{
   --bg:#0b0a0f; --card:#1a1523; --accent:#b33cff; --accent2:#e15fff;
-  --muted:#9e9e9e; --danger:#ff4c4c; --glass: rgba(255,255,255,0.03); font-family:'Vazir','Tahoma',sans-serif;
+  --muted:#9e9e9e; --danger:#ff4c4c; --glass: rgba(255,255,255,0.03); --telegram:#1e90ff;
+  font-family:'Vazir','Tahoma',sans-serif;
 }
 *{box-sizing:border-box;}
 body{margin:0;background:var(--bg);color:#fff;direction:rtl;font-family:'Vazir',sans-serif;}
@@ -34,16 +35,15 @@ header{grid-column:1/-1;display:flex;justify-content:space-between;align-items:c
 .cart-empty{opacity:0.6;color:var(--muted);}
 .order-form{display:none;background:rgba(18,12,25,0.6);padding:14px;border-radius:12px;border:1px solid rgba(225,95,255,0.1);margin-top:14px;}
 label{display:block;margin-bottom:4px;color:var(--muted);font-size:13px;}
-input,textarea{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(225,95,255,0.2);background:rgba(18,12,25,0.5);color:#fff;font-size:14px;}
+input,textarea{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(225,95,255,0.2);background:rgba(18,12,25,0.5);color:#fff;font-size:14px;outline:none;}
 input:focus,textarea:focus{box-shadow:0 0 10px rgba(225,95,255,0.3);}
+input.telegram{border:2px solid var(--telegram);box-shadow:0 0 10px var(--telegram);}
 .row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
 .full{grid-column:1/-1;}
 .note{font-size:12px;color:var(--muted);margin-top:4px;}
 .error{color:var(--danger);font-weight:800;}
 .success{color:#8cf3a0;font-weight:800;}
-.bottom-actions{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:center;padding:12px;background:linear-gradient(180deg,rgba(0,0,0,0.7),rgba(0,0,0,0.85));backdrop-filter: blur(6px);z-index:90;}
-.bottom-inner{max-width:1200px;width:100%;display:flex;justify-content:flex-end;gap:12px;}
-.buy-cta{padding:12px 18px;border-radius:12px;font-weight:900;cursor:pointer;border:none;}
+.bottom-actions{display:none;}
 footer{grid-column:1/-1;text-align:center;padding:18px;color:var(--muted);opacity:0.9;margin-top:40px;}
 @media(max-width:900px){.wrap{grid-template-columns:1fr;padding:12px}.row{grid-template-columns:1fr}.sidebar{order:-1;}}
 </style>
@@ -65,8 +65,7 @@ footer{grid-column:1/-1;text-align:center;padding:18px;color:var(--muted);opacit
 <div class="p-price">۱,۹۰۰,۰۰۰ تومان</div>
 <div class="p-desc">(با تغییر ریجن)</div>
 <div class="p-actions">
-<button class="btn" onclick="addToCart(this)">افزودن به سبد</button>
-<button class="btn primary" onclick="openBuyForm(this)">خرید</button>
+<button class="btn" onclick="addToCart(this)">افزودن به سبد خرید</button>
 </div>
 </div>
 
@@ -75,8 +74,7 @@ footer{grid-column:1/-1;text-align:center;padding:18px;color:var(--muted);opacit
 <div class="p-title">کوین Rainbow — ۱۰۰۰ عدد</div>
 <div class="p-price">۵۶۰,۰۰۰ تومان</div>
 <div class="p-actions">
-<button class="btn" onclick="addToCart(this)">افزودن به سبد</button>
-<button class="btn primary" onclick="openBuyForm(this)">خرید</button>
+<button class="btn" onclick="addToCart(this)">افزودن به سبد خرید</button>
 </div>
 </div>
 
@@ -85,8 +83,7 @@ footer{grid-column:1/-1;text-align:center;padding:18px;color:var(--muted);opacit
 <div class="p-title">Cyberpunk 2077</div>
 <div class="p-price">۶,۰۰۰,۰۰۰ تومان</div>
 <div class="p-actions">
-<button class="btn" onclick="addToCart(this)">افزودن به سبد</button>
-<button class="btn primary" onclick="openBuyForm(this)">خرید</button>
+<button class="btn" onclick="addToCart(this)">افزودن به سبد خرید</button>
 </div>
 </div>
 
@@ -95,8 +92,7 @@ footer{grid-column:1/-1;text-align:center;padding:18px;color:var(--muted);opacit
 <div class="p-title">Elden Ring</div>
 <div class="p-price" style="text-decoration:line-through;opacity:0.6;">ناموجود</div>
 <div class="p-actions">
-<button class="btn" disabled>افزودن به سبد</button>
-<button class="btn primary" disabled>خرید</button>
+<button class="btn" disabled>افزودن به سبد خرید</button>
 </div>
 </div>
 
@@ -111,8 +107,8 @@ footer{grid-column:1/-1;text-align:center;padding:18px;color:var(--muted);opacit
 
 <div class="row">
 <div>
-<label>نام و نام خانوادگی</label>
-<input name="fullname" type="text" required placeholder="مثال: مهدی یار مرادی">
+<label>نام و نام خانوادگی (اختیاری)</label>
+<input name="fullname" type="text" placeholder="مثال: علی فرهادی">
 </div>
 <div>
 <label>شماره موبایل</label>
@@ -121,13 +117,24 @@ footer{grid-column:1/-1;text-align:center;padding:18px;color:var(--muted);opacit
 </div>
 
 <div class="row" style="margin-top:10px">
+<div>
+<label>ایمیل (اختیاری)</label>
+<input name="email" type="email" placeholder="example@mail.com">
+</div>
+<div>
+<label>آی‌دی تلگرام (اختیاری)</label>
+<input class="telegram" name="telegram" type="text" placeholder="@YourID">
+</div>
+</div>
+
+<div class="row" style="margin-top:10px">
 <div id="steamUserWrap">
-<label>نام کاربری استیم</label>
-<input id="steam_user" name="steam_user" type="text" placeholder="SteamUsername" required>
+<label>نام کاربری استیم (اختیاری)</label>
+<input id="steam_user" name="steam_user" type="text" placeholder="SteamUsername">
 </div>
 <div id="steamPassWrap">
-<label>رمز عبور استیم</label>
-<input id="steam_pass" name="steam_pass" type="password" placeholder="رمز عبور" required>
+<label>رمز عبور استیم (اختیاری)</label>
+<input id="steam_pass" name="steam_pass" type="password" placeholder="رمز عبور">
 </div>
 </div>
 
@@ -149,7 +156,6 @@ footer{grid-column:1/-1;text-align:center;padding:18px;color:var(--muted);opacit
 </div>
 </form>
 </div>
-</main>
 
 <!-- سایدبار / سبد خرید -->
 <aside class="sidebar">
@@ -157,8 +163,7 @@ footer{grid-column:1/-1;text-align:center;padding:18px;color:var(--muted);opacit
 <h3>سبد خرید</h3>
 <div id="cartItems"><div class="cart-empty">سبد خرید خالی است</div></div>
 <div style="margin-top:10px;display:flex;gap:8px">
-<button class="btn" onclick="clearCart()">پاک کردن</button>
-<button class="btn primary" onclick="openBuyFormFromCart()">خرید</button>
+<button class="btn" onclick="openBuyFormFromCart()">ادامه خرید</button>
 </div>
 </div>
 </aside>
@@ -166,15 +171,7 @@ footer{grid-column:1/-1;text-align:center;padding:18px;color:var(--muted);opacit
 <footer>© 2025 GameKey98 — Cyberpunk Purple Theme</footer>
 </div>
 
-<!-- پایین صفحه: دکمه خرید -->
-<div class="bottom-actions">
-<div class="bottom-inner">
-<button class="buy-cta" onclick="openBuyFormFromCart()">خرید کالا</button>
-</div>
-</div>
-
 <script>
-// cart
 let cart=[];
 function addToCart(btn){
   const pr=btn.closest('.product');
@@ -195,29 +192,69 @@ function renderCart(){
   });
 }
 function removeFromCart(i){cart.splice(i,1);renderCart();}
-function clearCart(){cart=[];renderCart();}
-function openBuyForm(el){let pr=el.closest('.product');const name=pr?pr.dataset.name:cart.length>0?cart[0].name:'';document.getElementById('product_name_input').value=name;document.getElementById('selectedProduct').innerText=name;document.getElementById('buyForm').style.display='block';window.scrollTo({top:document.getElementById('buyForm').offsetTop-60,behavior:'smooth'});}
-function openBuyFormFromCart(){if(cart.length===0){alert('سبد خرید خالی است');return;}openBuyForm();}
-document.getElementById('want_ready').addEventListener('change',e=>{const c=e.target.checked;document.getElementById('steam_user').required=!c;document.getElementById('steam_pass').required=!c;document.getElementById('steamUserWrap').style.display=c?'none':'block';document.getElementById('steamPassWrap').style.display=c?'none':'block';});
-document.getElementById('orderForm').addEventListener('submit',async function(ev){
+function openBuyFormFromCart(){
+  if(cart.length===0){alert('سبد خرید خالی است');return;}
+  const firstProduct=cart[0].name;
+  document.getElementById('product_name_input').value=firstProduct;
+  document.getElementById('selectedProduct').innerText=firstProduct;
+  document.getElementById('buyForm').style.display='block';
+  window.scrollTo({top:document.getElementById('buyForm').offsetTop-60,behavior:'smooth'});
+}
+
+document.getElementById('want_ready').addEventListener('change',e=>{
+  const c=e.target.checked;
+  document.getElementById('steam_user').required=false;
+  document.getElementById('steam_pass').required=false;
+  document.getElementById('steamUserWrap').style.display=c?'none':'block';
+  document.getElementById('steamPassWrap').style.display=c?'none':'block';
+});
+
+document.getElementById('orderForm').addEventListener('submit', async function(ev){
   ev.preventDefault();
-  const msg=document.getElementById('formMsg');msg.classList.remove('error','success');msg.innerText='';
+  const msg=document.getElementById('formMsg');
+  msg.classList.remove('error','success'); msg.innerText='';
+
   const f=ev.target;
-  const fullname=f.fullname.value.trim();
   const phone=f.phone.value.trim();
   const product=document.getElementById('product_name_input').value||document.getElementById('selectedProduct').innerText;
-  if(!/^09\d{9}$/.test(phone)){msg.classList.add('error');msg.innerText='شماره موبایل باید ۱۱ رقم و با 09 شروع شود';return;}
-  if(fullname.length<2){msg.classList.add('error');msg.innerText='نام و نام خانوادگی را وارد کنید';return;}
-  if(!product||product==='محصول انتخاب نشده'){msg.classList.add('error');msg.innerText='محصول انتخاب نشده است';return;}
-  const data=new FormData(f);data.set('product_name',product);data.set('subject','سفارش آنلاین — '+product);data.set('recipient_email','bm.pro.ir@gmail.com');
+
+  if(!/^09\d{9}$/.test(phone)){
+    msg.classList.add('error');
+    msg.innerText='شماره موبایل باید ۱۱ رقم و با 09 شروع شود';
+    return;
+  }
+
+  const data=new FormData(f);
+  data.set('product_name',product);
+  data.set('subject','سفارش آنلاین — '+product);
+  data.set('recipient_email','bm.pro.ir@gmail.com');
+
   try{
     msg.innerText='در حال ارسال...';
-    const resp=await fetch('https://api.web3forms.com/submit',{method:'POST',body:data});
+    const resp=await fetch('https://api.web3forms.com/submit',{
+      method:'POST',
+      body:data
+    });
     const res=await resp.json();
-    if(res && res.success){msg.classList.add('success');msg.innerText=`پشتیبانی ما برای فعال کردن "${product}" به شما در تلگرام پیام می‌دهد / یا ایمیل ارسال می‌کند (حداکثر 10 دقیقه)`;f.reset();document.getElementById('steamUserWrap').style.display='block';document.getElementById('steamPassWrap').style.display='block';cart=[];renderCart();}
-    else{msg.classList.add('error');msg.innerText='خطا در ارسال فرم. دوباره امتحان کنید';}
-  }catch(err){msg.classList.add('error');msg.innerText='خطا در اتصال. مطمئن شوید Access Key صحیح است';console.error(err);}
+    if(res && res.success){
+      msg.classList.add('success');
+      msg.innerText=`خرید شما "${product}" ثبت شد. برای توضیحات و اطلاعات این محصول، برای شما در ایمیل یا تلگرام ارسال می‌شود (حداکثر 10 دقیقه)`;
+      f.reset();
+      cart=[];
+      renderCart();
+      document.getElementById('steamUserWrap').style.display='block';
+      document.getElementById('steamPassWrap').style.display='block';
+    } else {
+      msg.classList.add('error');
+      msg.innerText='خطا در ارسال فرم. دوباره امتحان کنید';
+    }
+  } catch(err){
+    msg.classList.add('error');
+    msg.innerText='خطا در اتصال. مطمئن شوید Access Key صحیح است';
+    console.error(err);
+  }
 });
+
 renderCart();
 </script>
 </body>
